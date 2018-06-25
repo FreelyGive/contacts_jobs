@@ -19,7 +19,7 @@ class JobListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['id'] = $this->t('Job ID');
-    $header['name'] = $this->t('Name');
+    $header['title'] = $this->t('Job Title');
     return $header + parent::buildHeader();
   }
 
@@ -29,7 +29,7 @@ class JobListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\contacts_jobs\Entity\Job */
     $row['id'] = $entity->id();
-    $row['name'] = Link::createFromRoute(
+    $row['title'] = Link::createFromRoute(
       $entity->label(),
       'entity.job.edit_form',
       ['job' => $entity->id()]

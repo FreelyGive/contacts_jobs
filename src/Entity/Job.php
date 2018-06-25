@@ -37,11 +37,10 @@ use Drupal\user\UserInterface;
  *   admin_permission = "administer job entities",
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "name",
+ *     "label" = "title",
  *     "uuid" = "uuid",
- *     "uid" = "user_id",
+ *     "uid" = "uid",
  *     "langcode" = "langcode",
- *     "status" = "status",
  *   },
  *   links = {
  *     "canonical" = "/admin/structure/job/{job}",
@@ -60,25 +59,15 @@ class Job extends ContentEntityBase implements JobInterface {
   /**
    * {@inheritdoc}
    */
-  public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
-    parent::preCreate($storage_controller, $values);
-    $values += [
-      'user_id' => \Drupal::currentUser()->id(),
-    ];
+  public function getTitle() {
+    return $this->get('title')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getName() {
-    return $this->get('name')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setName($name) {
-    $this->set('name', $name);
+  public function setTitle($title) {
+    $this->set('title', $title);
     return $this;
   }
 
@@ -101,21 +90,21 @@ class Job extends ContentEntityBase implements JobInterface {
    * {@inheritdoc}
    */
   public function getOwner() {
-    return $this->get('user_id')->entity;
+    return $this->get('uid')->entity;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getOwnerId() {
-    return $this->get('user_id')->target_id;
+    return $this->get('uid')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
   public function setOwnerId($uid) {
-    $this->set('user_id', $uid);
+    $this->set('uid', $uid);
     return $this;
   }
 
@@ -123,22 +112,82 @@ class Job extends ContentEntityBase implements JobInterface {
    * {@inheritdoc}
    */
   public function setOwner(UserInterface $account) {
-    $this->set('user_id', $account->id());
+    $this->set('uid', $account->id());
     return $this;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function isPublished() {
-    return (bool) $this->getEntityKey('status');
+  public function getClosingTime() {
+    return $this->get('closing')->value;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setPublished($published) {
-    $this->set('status', $published ? TRUE : FALSE);
+  public function setClosingTime($timestamp) {
+    $this->set('closing', $timestamp);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPublishStartTime() {
+    return $this->get('publish_start')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPublishStartTime($timestamp) {
+    $this->set('publish_start', $timestamp);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPublishEndTime() {
+    return $this->get('publish_end')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPublishEndTime($timestamp) {
+    $this->set('publish_end', $timestamp);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPromotedStartTime() {
+    return $this->get('promoted_start')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPromotedStartTime($timestamp) {
+    $this->set('promoted_start', $timestamp);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPromotedEndTime() {
+    return $this->get('promoted_end')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPromotedEndTime($timestamp) {
+    $this->set('promoted_end', $timestamp);
     return $this;
   }
 
@@ -148,36 +197,10 @@ class Job extends ContentEntityBase implements JobInterface {
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
-    $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Job entity.'))
-      ->setRevisionable(TRUE)
-      ->setSetting('target_type', 'user')
-      ->setSetting('handler', 'default')
-      ->setTranslatable(TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'author',
-        'weight' => 0,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-        'weight' => 5,
-        'settings' => [
-          'match_operator' => 'CONTAINS',
-          'size' => '60',
-          'autocomplete_type' => 'tags',
-          'placeholder' => '',
-        ],
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Job entity.'))
+    $fields['title'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Job Title'))
       ->setSettings([
-        'max_length' => 50,
+        'max_length' => 255,
         'text_processing' => 0,
       ])
       ->setDefaultValue('')
@@ -194,24 +217,80 @@ class Job extends ContentEntityBase implements JobInterface {
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
 
-    $fields['status'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Publishing status'))
-      ->setDescription(t('A boolean indicating whether the Job is published.'))
-      ->setDefaultValue(TRUE)
+    $fields['uid'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Authored by'))
+      ->setDescription(t('The username of the content author.'))
+      ->setSetting('target_type', 'user')
+      ->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId')
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'author',
+        'weight' => 0,
+      ])
       ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
-        'weight' => -3,
-      ]);
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
-      ->setDescription(t('The time that the entity was created.'));
+      ->setDescription(t('The time that the job was created.'));
 
     $fields['changed'] = BaseFieldDefinition::create('changed')
       ->setLabel(t('Changed'))
-      ->setDescription(t('The time that the entity was last edited.'));
+      ->setDescription(t('The time that the job was last edited.'));
+
+    $fields['closing'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Closing Date'))
+      ->setDescription(t('The time that the job closes.'))
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'timestamp',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp',
+        'weight' => 10,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
+
+    $fields['publish_start'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Publish Start'))
+      ->setDescription(t('The time that the job starts publishing.'));
+
+    $fields['publish_end'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Publish End'))
+      ->setDescription(t('The time that the job ends publishing.'));
+
+    $fields['promoted_start'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Promoted Start'))
+      ->setDescription(t('The time that the job starts promoting.'));
+
+    $fields['promoted_end'] = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Promoted End'))
+      ->setDescription(t('The time that the job ends promoting.'));
 
     return $fields;
+  }
+
+  /**
+   * Default value callback for 'uid' base field definition.
+   *
+   * @see ::baseFieldDefinitions()
+   *
+   * @return array
+   *   An array of default values.
+   */
+  public static function getCurrentUserId() {
+    return [\Drupal::currentUser()->id()];
   }
 
 }

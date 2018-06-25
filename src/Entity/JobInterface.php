@@ -16,23 +16,23 @@ interface JobInterface extends ContentEntityInterface, EntityChangedInterface, E
   // Add get/set methods for your configuration properties here.
 
   /**
-   * Gets the Job name.
+   * Gets the Job title.
    *
    * @return string
-   *   Name of the Job.
+   *   Title of the Job.
    */
-  public function getName();
+  public function getTitle();
 
   /**
-   * Sets the Job name.
+   * Sets the Job title.
    *
-   * @param string $name
-   *   The Job name.
+   * @param string $title
+   *   The Job title.
    *
    * @return \Drupal\contacts_jobs\Entity\JobInterface
    *   The called Job entity.
    */
-  public function setName($name);
+  public function setTitle($title);
 
   /**
    * Gets the Job creation timestamp.
@@ -54,24 +54,98 @@ interface JobInterface extends ContentEntityInterface, EntityChangedInterface, E
   public function setCreatedTime($timestamp);
 
   /**
-   * Returns the Job published status indicator.
+   * Gets the Job closing timestamp.
    *
-   * Unpublished Job are only visible to restricted users.
-   *
-   * @return bool
-   *   TRUE if the Job is published.
+   * @return int
+   *   Closing timestamp of the Job.
    */
-  public function isPublished();
+  public function getClosingTime();
 
   /**
-   * Sets the published status of a Job.
+   * Sets the Job closing timestamp.
    *
-   * @param bool $published
-   *   TRUE to set this Job to published, FALSE to set it to unpublished.
+   * @param int $timestamp
+   *   The Job closing timestamp.
    *
    * @return \Drupal\contacts_jobs\Entity\JobInterface
    *   The called Job entity.
    */
-  public function setPublished($published);
+  public function setClosingTime($timestamp);
+
+  /**
+   * Gets the Job publish start timestamp.
+   *
+   * @return int
+   *   Publish start timestamp of the Job.
+   */
+  public function getPublishStartTime();
+
+  /**
+   * Sets the Job publish start timestamp.
+   *
+   * @param int $timestamp
+   *   The Job publish start timestamp.
+   *
+   * @return \Drupal\contacts_jobs\Entity\JobInterface
+   *   The called Job entity.
+   */
+  public function setPublishStartTime($timestamp);
+
+  /**
+   * Gets the Job publish end timestamp.
+   *
+   * @return int
+   *   Publish end timestamp of the Job.
+   */
+  public function getPublishEndTime();
+
+  /**
+   * Sets the Job publish end timestamp.
+   *
+   * @param int $timestamp
+   *   The Job publish end timestamp.
+   *
+   * @return \Drupal\contacts_jobs\Entity\JobInterface
+   *   The called Job entity.
+   */
+  public function setPublishEndTime($timestamp);
+
+  /**
+   * Gets the Job promoted start timestamp.
+   *
+   * @return int
+   *   Promoted start timestamp of the Job.
+   */
+  public function getPromotedStartTime();
+
+  /**
+   * Sets the Job promoted start timestamp.
+   *
+   * @param int $timestamp
+   *   The Job promoted start timestamp.
+   *
+   * @return \Drupal\contacts_jobs\Entity\JobInterface
+   *   The called Job entity.
+   */
+  public function setPromotedStartTime($timestamp);
+
+  /**
+   * Gets the Job promoted end timestamp.
+   *
+   * @return int
+   *   Promoted end timestamp of the Job.
+   */
+  public function getPromotedEndTime();
+
+  /**
+   * Sets the Job promoted end timestamp.
+   *
+   * @param int $timestamp
+   *   The Job promoted end timestamp.
+   *
+   * @return \Drupal\contacts_jobs\Entity\JobInterface
+   *   The called Job entity.
+   */
+  public function setPromotedEndTime($timestamp);
 
 }
