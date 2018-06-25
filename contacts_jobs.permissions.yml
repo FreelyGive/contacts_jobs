@@ -12,8 +12,5 @@ delete job entities:
 edit job entities:
   title: 'Edit Job entities'
 
-view published job entities:
-  title: 'View published Job entities'
-
-view unpublished job entities:
-  title: 'View unpublished Job entities'
+view job entities:
+  title: 'View Job entities'

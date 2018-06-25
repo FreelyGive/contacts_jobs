@@ -119,6 +119,14 @@ class Job extends ContentEntityBase implements JobInterface {
   /**
    * {@inheritdoc}
    */
+  public function isClosed() {
+    $closed = $this->get('closing')->value;
+    return ($closed > time()) ? TRUE : FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getClosingTime() {
     return $this->get('closing')->value;
   }
@@ -129,6 +137,15 @@ class Job extends ContentEntityBase implements JobInterface {
   public function setClosingTime($timestamp) {
     $this->set('closing', $timestamp);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isPublished() {
+    $start = $this->get('publish_start')->value;
+    $end = $this->get('publish_end')->value;
+    return ($start < time() && $end > time()) ? TRUE : FALSE;
   }
 
   /**
@@ -159,6 +176,15 @@ class Job extends ContentEntityBase implements JobInterface {
   public function setPublishEndTime($timestamp) {
     $this->set('publish_end', $timestamp);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isPromoted() {
+    $start = $this->get('promoted_start')->value;
+    $end = $this->get('promoted_end')->value;
+    return ($start < time() && $end > time()) ? TRUE : FALSE;
   }
 
   /**
@@ -246,7 +272,7 @@ class Job extends ContentEntityBase implements JobInterface {
       ->setLabel(t('Changed'))
       ->setDescription(t('The time that the job was last edited.'));
 
-    $fields['closing'] = BaseFieldDefinition::create('changed')
+    $fields['closing'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Closing Date'))
       ->setDescription(t('The time that the job closes.'))
       ->setDisplayOptions('view', [
@@ -259,22 +285,21 @@ class Job extends ContentEntityBase implements JobInterface {
         'weight' => 10,
       ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
 
-    $fields['publish_start'] = BaseFieldDefinition::create('changed')
+    $fields['publish_start'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Publish Start'))
       ->setDescription(t('The time that the job starts publishing.'));
 
-    $fields['publish_end'] = BaseFieldDefinition::create('changed')
+    $fields['publish_end'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Publish End'))
       ->setDescription(t('The time that the job ends publishing.'));
 
-    $fields['promoted_start'] = BaseFieldDefinition::create('changed')
+    $fields['promoted_start'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Promoted Start'))
       ->setDescription(t('The time that the job starts promoting.'));
 
-    $fields['promoted_end'] = BaseFieldDefinition::create('changed')
+    $fields['promoted_end'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Promoted End'))
       ->setDescription(t('The time that the job ends promoting.'));
 

@@ -21,10 +21,7 @@ class JobAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\contacts_jobs\Entity\JobInterface $entity */
     switch ($operation) {
       case 'view':
-        if (!$entity->isPublished()) {
-          return AccessResult::allowedIfHasPermission($account, 'view unpublished job entities');
-        }
-        return AccessResult::allowedIfHasPermission($account, 'view published job entities');
+        return AccessResult::allowedIfHasPermission($account, 'view job entities');
 
       case 'update':
         return AccessResult::allowedIfHasPermission($account, 'edit job entities');
