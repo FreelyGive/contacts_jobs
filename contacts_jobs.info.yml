@@ -1,0 +1,9 @@
+name: Contacts Jobs
+description: "Provides a job board for Contacts."
+package: Contacts
+type: module
+core: 8.x
+
+dependencies:
+  - contacts:contacts
+  - drupal:system (>=8.5.0)
