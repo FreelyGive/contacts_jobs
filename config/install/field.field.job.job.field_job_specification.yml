@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.job.field_job_specification
+  module:
+    - contacts_jobs
+    - file
+id: job.job.field_job_specification
+field_name: field_job_specification
+entity_type: job
+bundle: job
+label: 'Personal Specification'
+description: 'Upload a personal specification if you have one in PDF form.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: job/specification
+  file_extensions: pdf
+  max_filesize: 8Mb
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

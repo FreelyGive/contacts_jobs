@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.job.field_job_apply
+  module:
+    - contacts_jobs
+id: job.job.field_job_apply
+field_name: field_job_apply
+entity_type: job
+bundle: job
+label: 'How to apply for the job'
+description: "'How to Apply' is limited to 1500 characters\r\nThis could include postal address, e-mail contact, telephone number or website for further information."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

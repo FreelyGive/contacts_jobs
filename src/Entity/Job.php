@@ -34,6 +34,8 @@ use Drupal\user\UserInterface;
  *     },
  *   },
  *   base_table = "job",
+ *   data_table = "job_field_data",
+ *   translatable = TRUE,
  *   admin_permission = "administer job entities",
  *   entity_keys = {
  *     "id" = "id",
@@ -229,40 +231,39 @@ class Job extends ContentEntityBase implements JobInterface {
         'max_length' => 255,
         'text_processing' => 0,
       ])
-      ->setDefaultValue('')
       ->setDisplayOptions('view', [
-        'label' => 'above',
+        'label' => 'hidden',
         'type' => 'string',
-        'weight' => -4,
+        'weight' => -5,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -4,
       ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
 
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
       ->setDescription(t('The username of the content author.'))
       ->setSetting('target_type', 'user')
-      ->setDefaultValueCallback('Drupal\node\Entity\Node::getCurrentUserId')
+      ->setDefaultValueCallback('Drupal\contacts_jobs\Entity\Job::getCurrentUserId')
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'author',
-        'weight' => 0,
+        'weight' => 99,
       ])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
-        'weight' => 5,
+        'weight' => 15,
         'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
           'placeholder' => '',
         ],
       ])
-      ->setDisplayConfigurable('form', TRUE);
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
@@ -278,13 +279,14 @@ class Job extends ContentEntityBase implements JobInterface {
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'timestamp',
-        'weight' => 0,
+        'weight' => 99,
       ])
       ->setDisplayOptions('form', [
         'type' => 'datetime_timestamp',
         'weight' => 10,
       ])
       ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
 
     $fields['publish_start'] = BaseFieldDefinition::create('timestamp')

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.job.field_job_salary_range
+  module:
+    - contacts_jobs
+id: job.job.field_job_salary_range
+field_name: field_job_salary_range
+entity_type: job
+bundle: job
+label: Range
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Enter a range'
+  off_label: 'Off'
+field_type: boolean
