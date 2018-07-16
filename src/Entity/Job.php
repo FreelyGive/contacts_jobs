@@ -255,7 +255,7 @@ class Job extends ContentEntityBase implements JobInterface {
       ])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
-        'weight' => 15,
+        'weight' => 19,
         'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
@@ -283,7 +283,7 @@ class Job extends ContentEntityBase implements JobInterface {
       ])
       ->setDisplayOptions('form', [
         'type' => 'datetime_timestamp',
-        'weight' => 10,
+        'weight' => 14,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
@@ -291,19 +291,67 @@ class Job extends ContentEntityBase implements JobInterface {
 
     $fields['publish_start'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Publish Start'))
-      ->setDescription(t('The time that the job starts publishing.'));
+      ->setDescription(t('The time that the job starts publishing.'))
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'timestamp',
+        'weight' => 99,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp',
+        'weight' => 10,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
 
     $fields['publish_end'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Publish End'))
-      ->setDescription(t('The time that the job ends publishing.'));
+      ->setDescription(t('The time that the job ends publishing.'))
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'timestamp',
+        'weight' => 99,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp',
+        'weight' => 11,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
 
     $fields['promoted_start'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Promoted Start'))
-      ->setDescription(t('The time that the job starts promoting.'));
+      ->setDescription(t('The time that the job starts promoting.'))
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'timestamp',
+        'weight' => 99,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp',
+        'weight' => 12,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
 
     $fields['promoted_end'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Promoted End'))
-      ->setDescription(t('The time that the job ends promoting.'));
+      ->setDescription(t('The time that the job ends promoting.'))
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'timestamp',
+        'weight' => 99,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_timestamp',
+        'weight' => 13,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE);
 
     return $fields;
   }

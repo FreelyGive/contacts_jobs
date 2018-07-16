@@ -6,8 +6,8 @@ dependencies:
     - field.field.job.job.field_job_category
     - field.field.job.job.field_job_description
     - field.field.job.job.field_job_editor
-    - field.field.job.job.field_job_hours
     - field.field.job.job.field_job_form
+    - field.field.job.job.field_job_hours
     - field.field.job.job.field_job_location
     - field.field.job.job.field_job_profile
     - field.field.job.job.field_job_salary_end
@@ -140,4 +140,8 @@ content:
     type: entity_reference_label
     region: content
 hidden:
+  promoted_end: true
+  promoted_start: true
+  publish_end: true
+  publish_start: true
   uid: true
