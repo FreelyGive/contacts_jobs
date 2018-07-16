@@ -1,13 +1,13 @@
 
 # Job menu items definition
 entity.job.collection:
-  title: 'Job entities'
+  title: 'Jobs'
   route_name: entity.job.collection
   description: 'List Job entities'
-  parent: system.admin_structure
+  parent: system.admin_content
 
 job.admin.structure.settings:
   title: 'Settings'
   description: 'Configure Job entities'
   route_name: job.settings
-  parent: entity.job.collection
+  parent: views_view:views.job.page_1
