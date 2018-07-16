@@ -1,0 +1,7 @@
+contacts_jobs.jobs:
+  path: '/jobs'
+  defaults:
+    _entity_list: 'job'
+    _title: 'Jobs'
+  requirements:
+    _permission: 'view job entities'
