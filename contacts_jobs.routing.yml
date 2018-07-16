@@ -1,7 +1,11 @@
-contacts_jobs.jobs:
-  path: '/jobs'
+contacts_jobs.job_withdraw:
+  path: '/job/{job}/withdraw'
   defaults:
-    _entity_list: 'job'
-    _title: 'Jobs'
+    _form: '\Drupal\contacts_jobs\Form\JobWithdrawForm'
+    _title: 'Withdraw Job'
   requirements:
-    _permission: 'view job entities'
+    _permission: 'edit job entities'
+  options:
+    parameters:
+      job:
+        type: entity:job

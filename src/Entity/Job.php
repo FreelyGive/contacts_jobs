@@ -45,11 +45,11 @@ use Drupal\user\UserInterface;
  *     "langcode" = "langcode",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/job/{job}",
- *     "add-form" = "/admin/structure/job/add",
- *     "edit-form" = "/admin/structure/job/{job}/edit",
- *     "delete-form" = "/admin/structure/job/{job}/delete",
- *     "collection" = "/admin/structure/job",
+ *     "canonical" = "/job/{job}",
+ *     "add-form" = "/job/add",
+ *     "edit-form" = "/job/{job}/edit",
+ *     "delete-form" = "/job/{job}/delete",
+ *     "collection" = "/jobs",
  *   },
  *   field_ui_base_route = "job.settings"
  * )

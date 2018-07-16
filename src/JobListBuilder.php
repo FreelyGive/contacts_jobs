@@ -30,7 +30,7 @@ class JobListBuilder extends EntityListBuilder {
     $row['id'] = $entity->id();
     $row['title'] = Link::createFromRoute(
       $entity->label(),
-      'entity.job.edit_form',
+      'entity.job.canonical',
       ['job' => $entity->id()]
     );
     return $row + parent::buildRow($entity);
