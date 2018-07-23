@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.job.field_job_editor
+  module:
+    - contacts_jobs
+id: job.job.field_job_editor
+field_name: field_job_editor
+entity_type: job
+bundle: job
+label: Editor
+description: '(e.g. key information about the role)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

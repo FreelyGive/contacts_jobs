@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.job.field_job_salary_end
+  module:
+    - contacts_jobs
+id: job.job.field_job_salary_end
+field_name: field_job_salary_end
+entity_type: job
+bundle: job
+label: 'Salary End'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

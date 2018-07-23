@@ -1,0 +1,16 @@
+add job entities:
+  title: 'Create new Job entities'
+
+administer job entities:
+  title: 'Administer Job entities'
+  description: 'Allow to access the administration form to configure Job entities.'
+  restrict access: true
+
+delete job entities:
+  title: 'Delete Job entities'
+
+edit job entities:
+  title: 'Edit Job entities'
+
+view job entities:
+  title: 'View Job entities'

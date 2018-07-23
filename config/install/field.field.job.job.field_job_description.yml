@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.job.field_job_description
+  module:
+    - contacts_jobs
+id: job.job.field_job_description
+field_name: field_job_description
+entity_type: job
+bundle: job
+label: 'Description of Job'
+description: 'Job descriptions limited to 1500 characters'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
