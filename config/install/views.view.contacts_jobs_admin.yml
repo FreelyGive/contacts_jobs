@@ -10,11 +10,11 @@ dependencies:
   module:
     - contacts_jobs
     - user
-id: job
-label: Job
+id: contacts_jobs_admin
+label: Jobs Admin
 module: views
 description: ''
-tag: ''
+tag: 'contacts_jobs'
 base_table: job_field_data
 base_field: id
 core: 8.x

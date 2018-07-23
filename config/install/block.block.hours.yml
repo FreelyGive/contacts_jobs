@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.hours
+  module:
+    - facets
+  theme:
+    - bartik
+id: hours
+theme: bartik
+region: sidebar_first
+weight: -2
+provider: null
+plugin: 'facet_block:hours'
+settings:
+  id: 'facet_block:hours'
+  label: Hours
+  provider: facets
+  label_display: visible
+  block_id: hours
+visibility: {  }

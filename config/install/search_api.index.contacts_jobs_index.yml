@@ -1,0 +1,198 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.job.field_job_category
+    - field.storage.job.field_job_description
+    - field.storage.job.field_job_editor
+    - field.storage.job.field_job_hours
+    - field.storage.job.field_job_apply
+    - field.storage.job.field_job_location
+    - field.storage.job.field_job_salary_range
+    - field.storage.job.field_job_salary_start
+    - field.storage.job.field_job_salary_end
+    - field.storage.job.field_job_type
+    - search_api.server.database_server
+  module:
+    - search_api
+    - contacts_jobs
+id: contacts_jobs_index
+name: 'Contacts Jobs Index'
+description: ''
+read_only: false
+field_settings:
+  changed:
+    label: Changed
+    datasource_id: 'entity:job'
+    property_path: changed
+    type: date
+  closing:
+    label: 'Closing Date'
+    datasource_id: 'entity:job'
+    property_path: closing
+    type: date
+  created:
+    label: Created
+    datasource_id: 'entity:job'
+    property_path: created
+    type: date
+  default_langcode:
+    label: 'Default translation'
+    datasource_id: 'entity:job'
+    property_path: default_langcode
+    type: boolean
+  field_job_apply:
+    label: 'How to apply for the job'
+    datasource_id: 'entity:job'
+    property_path: field_job_apply
+    type: text
+    boost: 0.5
+    dependencies:
+      config:
+        - field.storage.job.field_job_apply
+  field_job_category:
+    label: Category
+    datasource_id: 'entity:job'
+    property_path: field_job_category
+    type: integer
+    dependencies:
+      config:
+        - field.storage.job.field_job_category
+  field_job_description:
+    label: 'Description of Job'
+    datasource_id: 'entity:job'
+    property_path: field_job_description
+    type: text
+    boost: 0.8
+    dependencies:
+      config:
+        - field.storage.job.field_job_description
+  field_job_editor:
+    label: Editor
+    datasource_id: 'entity:job'
+    property_path: field_job_editor
+    type: string
+    dependencies:
+      config:
+        - field.storage.job.field_job_editor
+  field_job_hours:
+    label: Hours
+    datasource_id: 'entity:job'
+    property_path: field_job_hours
+    type: integer
+    dependencies:
+      config:
+        - field.storage.job.field_job_hours
+  field_job_location:
+    label: Location
+    datasource_id: 'entity:job'
+    property_path: field_job_location
+    type: integer
+    dependencies:
+      config:
+        - field.storage.job.field_job_location
+  field_job_salary_end:
+    label: 'Salary End'
+    datasource_id: 'entity:job'
+    property_path: field_job_salary_end
+    type: integer
+    dependencies:
+      config:
+        - field.storage.job.field_job_salary_end
+  field_job_salary_range:
+    label: Range
+    datasource_id: 'entity:job'
+    property_path: field_job_salary_range
+    type: boolean
+    dependencies:
+      config:
+        - field.storage.job.field_job_salary_range
+  field_job_salary_start:
+    label: Salary
+    datasource_id: 'entity:job'
+    property_path: field_job_salary_start
+    type: integer
+    dependencies:
+      config:
+        - field.storage.job.field_job_salary_start
+  field_job_type:
+    label: Type
+    datasource_id: 'entity:job'
+    property_path: field_job_type
+    type: integer
+    dependencies:
+      config:
+        - field.storage.job.field_job_type
+  id:
+    label: ID
+    datasource_id: 'entity:job'
+    property_path: id
+    type: integer
+  langcode:
+    label: Language
+    datasource_id: 'entity:job'
+    property_path: langcode
+    type: string
+  promoted_end:
+    label: 'Promoted End'
+    datasource_id: 'entity:job'
+    property_path: promoted_end
+    type: date
+  promoted_start:
+    label: 'Promoted Start'
+    datasource_id: 'entity:job'
+    property_path: promoted_start
+    type: date
+  publish_end:
+    label: 'Publish End'
+    datasource_id: 'entity:job'
+    property_path: publish_end
+    type: date
+  publish_start:
+    label: 'Publish Start'
+    datasource_id: 'entity:job'
+    property_path: publish_start
+    type: date
+  title:
+    label: 'Job Title'
+    datasource_id: 'entity:job'
+    property_path: title
+    type: text
+  uid:
+    label: 'Authored by'
+    datasource_id: 'entity:job'
+    property_path: uid
+    type: integer
+  uuid:
+    label: UUID
+    datasource_id: 'entity:job'
+    property_path: uuid
+    type: string
+datasource_settings:
+  'entity:job':
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  ignorecase:
+    all_fields: false
+    fields:
+      - field_job_apply
+      - field_job_description
+      - field_job_editor
+      - langcode
+      - title
+      - uuid
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+  rendered_item: {  }
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: database_server

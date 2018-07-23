@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.location
+  module:
+    - facets
+  theme:
+    - bartik
+id: location
+theme: bartik
+region: sidebar_first
+weight: -3
+provider: null
+plugin: 'facet_block:location'
+settings:
+  id: 'facet_block:location'
+  label: Locations
+  provider: facets
+  label_display: visible
+  block_id: location
+visibility: {  }

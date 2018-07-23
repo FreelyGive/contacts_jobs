@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.category
+  module:
+    - facets
+  theme:
+    - bartik
+id: category
+theme: bartik
+region: sidebar_first
+weight: -4
+provider: null
+plugin: 'facet_block:category'
+settings:
+  id: 'facet_block:category'
+  label: Categories
+  provider: facets
+  label_display: visible
+  block_id: category
+visibility: {  }
